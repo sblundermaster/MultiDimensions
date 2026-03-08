@@ -9,6 +9,7 @@ public class Rational {
         if (down == 0) {
             throw new DivideByZeroException();
         }
+        // Числитель и знаменатель не предусмотрены для дробных чисел, поэтому умножаем их на 10, пока они не станут целыми.
         while (up != Math.floor(up) || down != Math.floor(down)) {
             up *= 10;
             down *= 10;
@@ -25,6 +26,7 @@ public class Rational {
         this.down = (long)down;
         Rationalize();
     }
+    // Упрощение дроби.
     public void Rationalize() {
         if (this.up == 0) {
             this.down = 1;

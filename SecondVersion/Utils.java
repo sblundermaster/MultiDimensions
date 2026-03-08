@@ -16,6 +16,7 @@ public class Utils {
         }
         return output;
     }
+    // Возвращает входящую таблицу без indexh-того столбца и indexv-той строки.
     public static <Z> ArrayList<ArrayList<Z>> ListWithout(ArrayList<ArrayList<Z>> input, int indexh, int indexv) {
         ArrayList<ArrayList<Z>> output = new ArrayList<>();
         for (int i = 0; i < input.size(); i++) {
@@ -33,9 +34,11 @@ public class Utils {
         }
         return output;
     }
+    // Возвращает входящую таблицу без indexh-того столбца.
     public static <Z> ArrayList<ArrayList<Z>> ListWithout(ArrayList<ArrayList<Z>> input, int indexh) {
         return ListWithout(input, indexh, -1);
     }
+    // Возвращает определитель входящей матрицы.
     public static Rational Determinant(ArrayList<ArrayList<Rational>> matrix) throws InvalidMatrixException, DivideByZeroException {
         try {
             int c = matrix.size();
@@ -75,6 +78,7 @@ public class Utils {
     public static Rational Determinant(Rational[][] matrix) throws InvalidMatrixException, DivideByZeroException {
         return Determinant(ArrayToList(matrix));
     }
+    // Возвращает решение к входящей системе уравнений
     public static ArrayList<Rational> Solve(ArrayList<ArrayList<Rational>> system) throws InvalidEquationSystemException, NotSingleSolutionException, DivideByZeroException {
         int c = system.size();
         for (int i = 0; i < c; i++) {

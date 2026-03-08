@@ -1,7 +1,6 @@
 package MultiDimensions.SecondVersion;
 
 import MultiDimensions.SecondVersion.Exceptions.DifferentPointsCordsCountsException;
-import MultiDimensions.SecondVersion.Exceptions.DivideByZeroException;
 import MultiDimensions.SecondVersion.Exceptions.InvalidDimensionsCountException;
 
 import java.util.ArrayList;

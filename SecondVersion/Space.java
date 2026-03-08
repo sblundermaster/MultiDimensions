@@ -47,6 +47,7 @@ public class Space {
         this.Lines.clear();
         this.Flats.clear();
     }
+    // Проверяет принадлежность точки к объекту.
     public boolean IsPointInObject(Point point, int object) {
         try {
             Rational testing = new Rational(0, 1);
@@ -66,12 +67,14 @@ public class Space {
     public boolean IsPointInObject(int point, int object) {
         return IsPointInObject(this.Points.get(point), object);
     }
+    // Проверяет принадлежность прямой к объекту.
     public boolean IsLineInObject(Line line, int object) {
         return (this.IsPointInObject(line.First, object) && this.IsPointInObject(line.Second, object));
     }
     public boolean IsLineInObject(int line, int object) {
         return IsLineInObject(this.Lines.get(line), object);
     }
+    // Проверяет принадлежность плоскости к объекту.
     public boolean IsFlatInObject(Flat flat, int object) {
         return (this.IsPointInObject(flat.First, object) && this.IsPointInObject(flat.Second, object) && this.IsPointInObject(flat.Third, object));
     }
@@ -106,12 +109,22 @@ public class Space {
             return false;
         }
     }
+    // Проверяет принадлежность точки прямой.
+    public static boolean IsPointInLine(Point point, Line line) throws DifferentPointsCordsCountsException {
+        try {
+            return OnTheSameLine(new Point[] { point, line.First, line.Second });
+        } catch (NotEnoughPointsException e) {
+            return false;
+        }
+    }
+    // Проверяет сходство объектов.
     public static boolean SameObjects(Object first, Object second) throws SimilarPointsException, DifferentObjectsDimensionsCountsException {
         if (!SimilarObjects(first, second)) {
             return false;
         }
         int l = first.Dimensions;
         try {
+            // Если соотношение свободных членов и коэффициентов равны, то объекты совпадают.
             if (Rational.Same(Rational.Multiplication(first.Parameters.get(l), second.Parameters.get(l - 1)),
                     Rational.Multiplication(first.Parameters.get(l - 1), second.Parameters.get(l)))) {
                 return true;
@@ -121,12 +134,14 @@ public class Space {
         }
         return false;
     }
+    // Проверяет параллельность объектов.
     public static boolean ParallelObjects(Object first, Object second) throws SimilarPointsException, DifferentObjectsDimensionsCountsException {
         if (!SimilarObjects(first, second)) {
             return false;
         }
         int l = first.Dimensions;
         try {
+            // Если соотношение свободных членов и коэффициентов не равны, то объекты параллельны.
             if (!Rational.Same(Rational.Multiplication(first.Parameters.get(l), second.Parameters.get(l - 1)),
                     Rational.Multiplication(first.Parameters.get(l - 1), second.Parameters.get(l)))) {
                 return true;
@@ -136,6 +151,7 @@ public class Space {
         }
         return false;
     }
+    // Проверяет что-то одно из параллельности и сходства объектов (используется как предпроверка в проверках на параллельность и на сходство).
     public static boolean SimilarObjects(Object first, Object second) throws SimilarPointsException, DifferentObjectsDimensionsCountsException {
         if (first.Dimensions != second.Dimensions) {
             throw new DifferentObjectsDimensionsCountsException();
@@ -145,6 +161,7 @@ public class Space {
         }
         try {
             for (int i = 0; i < first.Dimensions - 1; i++) {
+                // Если соотношение одних коэффициентов не равно соотношению других, то эти объекты не могут быть ни параллельными, ни сходными.
                 if (!Rational.Same(Rational.Multiplication(first.Parameters.get(i), second.Parameters.get(i + 1)),
                         Rational.Multiplication(first.Parameters.get(i + 1), second.Parameters.get(i)))) {
                     return false;
@@ -155,13 +172,7 @@ public class Space {
         }
         return true;
     }
-    public static boolean IsPointInLine(Point point, Line line) throws DifferentPointsCordsCountsException {
-        try {
-            return OnTheSameLine(new Point[] { point, line.First, line.Second });
-        } catch (NotEnoughPointsException e) {
-            return false;
-        }
-    }
+    // Проверяет принадлежность точек к одной прямой.
     public static boolean OnTheSameLine(Point[] points) throws NotEnoughPointsException, DifferentPointsCordsCountsException {
         if (points.length < 2) {
             throw new NotEnoughPointsException();

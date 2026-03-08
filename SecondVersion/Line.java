@@ -14,6 +14,7 @@ public class Line {
         }
         boolean OK = false;
         for (int i = 0; i < first.Cords.size(); i++) {
+            // Если координаты точек равны, то прямая, которую можно провести через эти точки, не единственная.
             if (first.Cords.get(i) != second.Cords.get(i)) {
                 OK = true;
                 break;

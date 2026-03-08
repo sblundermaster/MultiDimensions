@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Object {
     public int Dimensions;
     public ArrayList<Rational> Parameters;
+    // Создание объекта через коэффициенты геометрического уравнения.
     public Object(int dimensions, ArrayList<Rational> parameters) throws UnsupportedDimensionsCountException {
         if (dimensions < 0) {
             throw new UnsupportedDimensionsCountException();
@@ -25,6 +26,7 @@ public class Object {
         this.Dimensions = dimensions;
         this.Parameters = list;
     }
+    // Создание объекта через точки, принадлежащие объекту.
     public Object(ArrayList<ArrayList<Rational>> cords) throws DivideByZeroException, NotSingleObjectException, InvalidDimensionsCountException {
         for (int i = 0; i < cords.size(); i++) {
             cords.get(i).add(new Rational(-1, 1));
